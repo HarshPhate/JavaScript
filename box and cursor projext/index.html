@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draggable Box</title>
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: grab;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+
+    <script>
+        const box = document.getElementById('box');
+        let isDragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        // Mouse down event: start dragging
+        box.addEventListener('mousedown', (event) => {
+            isDragging = true;
+            offsetX = event.clientX - box.offsetLeft;
+            offsetY = event.clientY - box.offsetTop;
+            box.style.cursor = 'grabbing';
+        });
+
+        // Mouse move event: move the box
+        document.addEventListener('mousemove', (event) => {
+            if (isDragging) {
+                const x = event.clientX - offsetX;
+                const y = event.clientY - offsetY;
+                box.style.left = `${x}px`;
+                box.style.top = `${y}px`;
+            }
+        });
+
+        // Mouse up event: stop dragging
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            box.style.cursor = 'grab';
+        });
+    </script>
+</body>
+</html>

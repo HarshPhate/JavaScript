@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow Watch</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .clock {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #333;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .clock::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Hour Hand */
+        .hour {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 6px;
+            height: 50px;
+            background-color: white;
+            transform-origin: bottom;
+            transform: translate(-50%, -100%);
+            transition: transform 0.1s ease-in-out;
+        }
+
+        /* Minute Hand */
+        .minute {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 70px;
+            background-color: white;
+            transform-origin: bottom;
+            transform: translate(-50%, -100%);
+            transition: transform 0.1s ease-in-out;
+        }
+
+        /* Second Hand */
+        .second {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 90px;
+            background-color: red;
+            transform-origin: bottom;
+            transform: translate(-50%, -100%);
+            transition: transform 0.1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div class="hour"></div>
+        <div class="minute"></div>
+        <div class="second"></div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            // Calculate angles for each hand
+            const hoursDeg = (hours % 12) * 30 + minutes * 0.5; // 360 / 12 = 30 degrees per hour
+            const minutesDeg = minutes * 6; // 360 / 60 = 6 degrees per minute
+            const secondsDeg = seconds * 6; // 360 / 60 = 6 degrees per second
+
+            // Apply rotation to each hand
+            document.querySelector('.hour').style.transform = `translate(-50%, -100%) rotate(${hoursDeg}deg)`;
+            document.querySelector('.minute').style.transform = `translate(-50%, -100%) rotate(${minutesDeg}deg)`;
+            document.querySelector('.second').style.transform = `translate(-50%, -100%) rotate(${secondsDeg}deg)`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); // Initial call to set the time immediately
+    </script>
+</body>
+</html>

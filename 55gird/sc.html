@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5x5 Button Grid with Row and Column Numbers</title>
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 50px);
+            gap: 5px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .grid button {
+            width: 50px;
+            height: 50px;
+            background-color: lightblue;
+            border: 1px solid #ccc;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .grid button:hover {
+            background-color: dodgerblue;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid" id="gridContainer"></div>
+
+    <script>
+        const gridContainer = document.getElementById('gridContainer');
+
+        // Number of rows and columns
+        const rows = 5;
+        const cols = 5;
+
+        // Create a 5x5 grid of buttons
+        for (let row = 1; row <= rows; row++) {
+            for (let col = 1; col <= cols; col++) {
+                const button = document.createElement('button');
+                button.textContent = `R${row}C${col}`; // Display row and column numbers
+                button.onclick = () => alert(`Row: ${row}, Column: ${col}`);
+                gridContainer.appendChild(button);
+            }
+        }
+    </script>
+</body>
+</html>
